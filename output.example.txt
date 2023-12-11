@@ -1,0 +1,9 @@
+Folders:
+Found 19 folders
+No next page. Done collecting folders
+__DriveRoot__ - 0AH<<GoogleDriveID>>:
+  -- firstperson@ucsd.edu
+  -- secondsperson@ucsd.edu
+  -- outsideaddress@gmail.com
+Example_Foler_with_non-inherited_permissoin - 1AKE<<GoogleFolderID>>:
+  -- thirdperson@ucsd.edu

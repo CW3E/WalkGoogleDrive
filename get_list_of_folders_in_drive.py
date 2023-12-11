@@ -1,3 +1,4 @@
+#!/Users/pmulrooney/Desktop/Garbage/google_drive_user_scan/conda-env/bin/python -u
 from __future__ import print_function
 
 import os.path
@@ -13,7 +14,7 @@ from googleapiclient.errors import HttpError
 SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly']
 
 
-def main(driveId):
+def main(driveId, folderid):
     """Shows basic usage of the Drive v3 API.
     Prints the names and ids of the first 10 files the user has access to.
     """
@@ -91,7 +92,7 @@ def main(driveId):
                     _value[1] += [ x['emailAddress'] for x in items if x['permissionDetails'][0]['inherited'] == False and x['type'] != 'anyone' ]
 
             if len(_value[1]) > 0:
-                print("%s - %s:"%(_value[0], _key))
+                print("%s - https://drive.google.com/drive/u/0/folders/%s :"%(_value[0], _key))
                 for _val in _value[1]:
                     print("  -- %s"%(_val))
 
@@ -104,4 +105,5 @@ def main(driveId):
    
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    folder=sys.argv[2]
+    main(sys.argv[1], folder)

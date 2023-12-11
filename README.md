@@ -9,4 +9,8 @@
     1. google-api-python-client
     1. google-auth-httplib2
     1. google-auth-oauthlib
-1. Then you just run the script using `python ./get_list_of_folders_in_drive.py <<GoogleDriveIDFromURL>>`
+1. Different ways to run the tools
+    1. The original simple folder scanner (all folders in your drive) `python ./get_list_of_folders_in_drive.py <<GoogleDriveIDFromURL>>`
+    2. The updated scanner all files and folders in your drive python `python ./get_list_of_folders_in_drive.v2.py <<GoogleDriveIDFromURL>> --search_files`
+    3. Scoped to just a subfolder and all folders beneath it `python ./get_list_of_folders_in_drive.v2.py <<GoogleDriveIDFromURL>> --folder_id <<GoogleDriveFolderIDFromURL>>`
+    4. Scoped to just a subfolder and all files and folders beneath it `python ./get_list_of_folders_in_drive.v2.py <<GoogleDriveIDFromURL>> --folder_id <<GoogleDriveFolderIDFromURL>> --search_files`

@@ -94,7 +94,9 @@ def main(args):
                pageSize=1000, fields="nextPageToken, files(id, name)").execute()
 
            items = results.get('files', [])
-           folders += [ [item['id'], item['name'], 'https://drive.google.com/drive/u/0/folders', []] for item in items ]
+           for item in items:
+               if not any(folder[0] == item['id'] for folder in folders):
+                   folders.append([item['id'], item['name'], 'https://drive.google.com/drive/u/0/folders', []])
 
            nextPageToken = results.get('nextPageToken', '')
 
@@ -114,10 +116,6 @@ def main(args):
                 break
 
     print("")
-    print("Length of 'folders': %s"%(len(folders)))
-    exit(0)
-
-    print("")
     print("")
 
     files = []
@@ -128,7 +126,7 @@ def main(args):
         FCount=len(folders)
         for _index, _folder in enumerate(folders):
             print(f'Getting files in _folder: {_index:04d} of {FCount:04d} ({_folder[0]})                                         ', end='\r')
-            _query = "mimeType!=\"application/vnd.google-apps.folder\" and \"%s\" in parents"%(_folder[0])
+            _query = "mimeType!=\"application/vnd.google-apps.folder\" and mimeType!=\"application/vnd.google-apps.shortcut\" and \"%s\" in parents"%(_folder[0])
             nextFilePageToken=None
         
             while nextFilePageToken != '':
@@ -159,10 +157,18 @@ def main(args):
     print("")
     print("Get all permissions:")
     FFCount=len(folders)+len(files)
+
+    Checked_indexes = []
+
     for _index, _folder in enumerate(folders + files):
         print(f'Getting files in folder: {_index:04d} of {FFCount:04d} ({_folder[0]})                                   ', end='\r')
         nextPageToken=None
         
+        if _folder[0] in Checked_indexes:
+            continue
+
+        Checked_indexes.append(_folder[0])
+
         while nextPageToken != '':
            try:
                results = service.permissions().list(fileId=_folder[0],
@@ -205,6 +211,14 @@ def main(args):
 
 
 if __name__ == '__main__':
+
+
+
+
+
+
+
+
 
     args = parse_args()
     main(args)

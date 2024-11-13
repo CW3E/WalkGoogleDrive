@@ -1,3 +1,4 @@
 *.json
 _output/
 conda-env/
+conda-env-linux/
